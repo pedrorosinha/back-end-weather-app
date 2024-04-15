@@ -16,15 +16,7 @@ import java.util.List;
 public class PrevisaoTempoController {
 
     @Autowired
-    private PrevisaoTempoRepository previsaoTempoRepository;
-
-    @Autowired
     private PrevisaoTempoService previsaoTempoService;
-
-    @Value("${openweathermap.api.key}")
-    private String apiKey;
-
-    private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather";
 
     @GetMapping("/tempo-atual")
     public String getTempo(@RequestParam String cidade) {
