@@ -5,11 +5,13 @@ import br.com.dbserver.weatherapp.model.PrevisaoTempo;
 import br.com.dbserver.weatherapp.repository.PrevisaoTempoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Service
 public class PrevisaoTempoService {
     @Autowired
     private PrevisaoTempoRepository previsaoTempoRepository;
