@@ -23,7 +23,7 @@ public class PrevisaoTempoController {
 
     private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather";
 
-    @GetMapping("/tempo")
+    @GetMapping("/tempo-atual")
     public String getTempo(@RequestParam String cidade) {
         String apiUrl = API_URL + "?q=" + cidade + "&appid=" + apiKey + "&units=metric";
 
