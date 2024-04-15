@@ -33,20 +33,20 @@ public class PrevisaoTempoController {
         }
     }
 
-    @GetMapping("/tempo")
-    public List<PrevisaoTempo> getAllPrevisaoTempo() {
-        return previsaoTempoRepository.findAll();
-    }
-
-    @PostMapping("/tempo")
-    public PrevisaoTempo cadastrarTempo(@RequestBody PrevisaoTempo previsaoTempo) {
-        return previsaoTempoRepository.save(previsaoTempo);
-    }
-
-    @PutMapping("/tempo/{id}")
-    public PrevisaoTempo atualizarTempo(@PathVariable Long id, @RequestBody PrevisaoTempo previsaoTempo) {
-        PrevisaoTempo tempo = PrevisaoTempoRepository.findById(id);
-        tempo.setTempo(tempo.getTempo)
-    }
+//    @GetMapping("/tempo")
+//    public List<PrevisaoTempo> getAllPrevisaoTempo() {
+//        return previsaoTempoRepository.findAll();
+//    }
+//
+//    @PostMapping("/tempo")
+//    public PrevisaoTempo cadastrarTempo(@RequestBody PrevisaoTempo previsaoTempo) {
+//        return previsaoTempoRepository.save(previsaoTempo);
+//    }
+//
+//    @PutMapping("/tempo/{id}")
+//    public PrevisaoTempo atualizarTempo(@PathVariable Long id, @RequestBody PrevisaoTempo previsaoTempo) {
+//        PrevisaoTempo tempo = PrevisaoTempoRepository.findById(id);
+//        tempo.setTempo(tempo.getTempo)
+//    }
 
 }
