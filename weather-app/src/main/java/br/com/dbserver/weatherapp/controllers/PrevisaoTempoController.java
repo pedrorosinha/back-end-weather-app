@@ -1,11 +1,9 @@
 package br.com.dbserver.weatherapp.controllers;
 
-import br.com.dbserver.weatherapp.exceptions.ResourceNotFoundException;
+import br.com.dbserver.weatherapp.dto.PrevisaoTempoDTO;
 import br.com.dbserver.weatherapp.model.PrevisaoTempo;
-import br.com.dbserver.weatherapp.repository.PrevisaoTempoRepository;
 import br.com.dbserver.weatherapp.services.PrevisaoTempoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,13 +32,21 @@ public class PrevisaoTempoController {
     }
 
     @PostMapping("/previsao")
-    public ResponseEntity<String> cadastrarPrevisaoTempo(@RequestBody PrevisaoTempo previsaoTempo) {
+    public ResponseEntity<String> cadastrarPrevisaoTempo(@RequestBody PrevisaoTempoDTO previsaoTempoDTO) {
+        PrevisaoTempo previsaoTempo = new PrevisaoTempo();
+        previsaoTempo.setidade(previsaoTempoDTO.getCidade());
+        previsaoTempo.setTempo(previsaoTempoDTO.getTempo());
+
         previsaoTempoService.cadastrarPrevisao(previsaoTempo);
         return ResponseEntity.ok("Previsão cadastrada com sucesso");
     }
 
     @PutMapping("/previsao/{id}")
-    public ResponseEntity<String> editarPrevisao(@PathVariable Long id, @RequestBody PrevisaoTempo previsaoTempo) {
+    public ResponseEntity<String> editarPrevisao(@PathVariable Long id, @RequestBody PrevisaoTempoDTO previsaoTempoDTO) {
+        PrevisaoTempo previsaoTempo = new PrevisaoTempo();
+        previsaoTempo.setCidade(previsaoTempoDTO.getCidade());
+        previsaoTempo.setTempo(previsaoTempoDTO.getTempo());
+
         previsaoTempoService.editarPrevisao(id, previsaoTempo);
         return ResponseEntity.ok("Previsão atualizada");
     }

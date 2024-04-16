@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PrevisaoTempo {
@@ -19,20 +21,4 @@ public class PrevisaoTempo {
 
     private String cidade;
     private String tempo;
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getTempo() {
-        return tempo;
-    }
-
-    public void setTempo(String tempo) {
-        this.tempo = tempo;
-    }
 }
