@@ -34,7 +34,7 @@ public class PrevisaoTempoController {
     @PostMapping("/previsao")
     public ResponseEntity<String> cadastrarPrevisaoTempo(@RequestBody PrevisaoTempoDTO previsaoTempoDTO) {
         PrevisaoTempo previsaoTempo = new PrevisaoTempo();
-        previsaoTempo.setidade(previsaoTempoDTO.getCidade());
+        previsaoTempo.setcidade(previsaoTempoDTO.getCidade());
         previsaoTempo.setTempo(previsaoTempoDTO.getTempo());
 
         previsaoTempoService.cadastrarPrevisao(previsaoTempo);
