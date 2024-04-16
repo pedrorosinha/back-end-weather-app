@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 public class PrevisaoTempoService {
+
     @Autowired
     private PrevisaoTempoRepository previsaoTempoRepository;
 
