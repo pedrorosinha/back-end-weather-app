@@ -1,5 +1,6 @@
 package br.com.dbserver.weatherapp.services;
 
+import br.com.dbserver.weatherapp.exceptions.ResourceNotFoundException;
 import br.com.dbserver.weatherapp.model.PrevisaoTempo;
 import br.com.dbserver.weatherapp.repository.PrevisaoTempoRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -65,6 +66,17 @@ class PrevisaoTempoServiceImplTest {
     }
 
     @Test
+    void cadastrarPrevisaoErro() {
+        doThrow(RuntimeException.class).when(previsaoTempoRepository).save(any());
+
+        PrevisaoTempo previsaoTempo = new PrevisaoTempo(null, cidade1, previsao1);
+
+        assertThrows(RuntimeException.class, () -> previsaoTempoService.cadastrarPrevisao(previsaoTempo));
+
+        verify(previsaoTempoRepository, times(1)).save(previsaoTempo);
+    }
+
+    @Test
     void editarPrevisao() {
         PrevisaoTempo previsaoTempo = new PrevisaoTempo(1L, cidade1, previsao1);
 
@@ -76,10 +88,32 @@ class PrevisaoTempoServiceImplTest {
     }
 
     @Test
+    void editarPrevisaoErro() {
+        when(previsaoTempoRepository.findById(1L)).thenReturn(Optional.empty());
+
+        PrevisaoTempo previsaoTempo = new PrevisaoTempo(1L, cidade1, previsao1);
+
+        assertThrows(ResourceNotFoundException.class, () -> previsaoTempoService.editarPrevisao(1L, previsaoTempo));
+
+        verify(previsaoTempoRepository, never()).save(any());
+    }
+
+    @Test
     void deletarPrevisao() {
         when(previsaoTempoRepository.findById(1L)).thenReturn(Optional.of(new PrevisaoTempo()));
 
         previsaoTempoService.deletarPrevisao(1L);
+
+        verify(previsaoTempoRepository, times(1)).delete(any());
+    }
+
+    @Test
+    void deletarPrevisaoErro() {
+        when(previsaoTempoRepository.findById(1L)).thenReturn(Optional.of(new PrevisaoTempo()));
+
+        doThrow(RuntimeException.class).when(previsaoTempoRepository).delete(any());
+
+        assertThrows(RuntimeException.class, () -> previsaoTempoService.deletarPrevisao(1L));
 
         verify(previsaoTempoRepository, times(1)).delete(any());
     }
