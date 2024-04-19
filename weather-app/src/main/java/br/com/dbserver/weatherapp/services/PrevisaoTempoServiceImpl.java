@@ -21,8 +21,8 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     @Value("${openweathermap.api.key}")
     private String apiKey;
 
-    private static final String TEMPO_ATUAL_API_URL = "http://api.openweathermap.org/data/2.5/weather";
-    private static final String TEMPO_7DIAS_API_URL = "http://api.openweathermap.org/data/2.5/forecast";
+    private String TEMPO_ATUAL_API_URL = "http://api.openweathermap.org/data/2.5/weather";
+    private String TEMPO_7DIAS_API_URL = "http://api.openweathermap.org/data/2.5/forecast";
 
     @Override
     public String getPrevisaoTempoAtual(String cidade) {
