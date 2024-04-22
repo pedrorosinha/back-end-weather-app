@@ -1,6 +1,5 @@
 # Projeto Weather App
 
-## Descrição do Projeto
 O projeto Weather App é uma aplicação back-end desenvolvida em Spring Boot que fornece serviços relacionados à previsão do tempo. Ele utiliza o banco de dados MySQL para armazenar dados e disponibiliza uma API HTTP para consulta das previsões do tempo. Além disso, o WireMock é utilizado para testar a API em um ambiente simulado na porta 4433.
 Este projeto foi proposto pela DBServer como parte do desafio final da equipe da Formação Academia.
 
@@ -38,11 +37,20 @@ Este projeto foi proposto pela DBServer como parte do desafio final da equipe da
    - Use o software Postman ou o Insomnia para fazer as requisições.
    
 **Metódo GETTempoAtual (Porto Alegre) (Não precisa de JSON)**
-  - `localhost:8080/previsaoTempo/tempo-atual?cidade=Porto Alegre`
+  - `localhost:8080/previsaoTempo/tempo-atual?cidade=Porto Alegre`<br>
+```bash
+ Vazio
+```
 **Método GETTempo7Dias (Porto Alegre) (Não precisa de JSON)**
-  - `localhost:8080/previsaoTempo/tempo-7dias?cidade=Porto Alegre`
+  - `localhost:8080/previsaoTempo/tempo-7dias?cidade=Porto Alegre`<br>
+```bash
+ Vazio
+```
 **Método GETAllTempo (Não precisa de JSON)**
-  - `localhost:8080/previsaoTempo/tempo`
+  - `localhost:8080/previsaoTempo/tempo`<br>
+```bash
+ Vazio
+```
 **Método POSTTempo (Precisa de JSON) (cidade e tempo)**
   - `localhost:8080/previsaoTempo/previsao`
   ```bash
