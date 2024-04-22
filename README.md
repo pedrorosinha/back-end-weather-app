@@ -13,7 +13,7 @@ Este projeto foi proposto pela DBServer como parte do desafio final da equipe da
    ```bash
    git clone https://github.com/seu-usuario/weather-app.git
 3. **Como pegar a chave da API**
-   - Vá ate o site [openweathermap.org]([url](https://openweathermap.org/api)) e cria uma conta.
+   - Vá ate o site [openweathermap.org](https://openweathermap.org/api) e cria uma conta.
    - Depois clica na sua conta e vai para My API Keys.
    - Já vai aparecer uma chave padrão ou tu podes criar uma nova. Tu vai colocar um nome da chave, por exemplo `chaveAPI` e clica em `Generate`.
    - Depois só adiciona no `application.properties`.
