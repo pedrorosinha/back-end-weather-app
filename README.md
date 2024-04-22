@@ -38,19 +38,13 @@ Este projeto foi proposto pela DBServer como parte do desafio final da equipe da
    
 **Metódo GETTempoAtual (Porto Alegre) (Não precisa de JSON)**
   - `localhost:8080/previsaoTempo/tempo-atual?cidade=Porto Alegre`<br>
-```bash
- Vazio
-```
+  
 **Método GETTempo7Dias (Porto Alegre) (Não precisa de JSON)**
   - `localhost:8080/previsaoTempo/tempo-7dias?cidade=Porto Alegre`<br>
-```bash
- Vazio
-```
+  
 **Método GETAllTempo (Não precisa de JSON)**
   - `localhost:8080/previsaoTempo/tempo`<br>
-```bash
- Vazio
-```
+
 **Método POSTTempo (Precisa de JSON) (cidade e tempo)**
   - `localhost:8080/previsaoTempo/previsao`
   ```bash
