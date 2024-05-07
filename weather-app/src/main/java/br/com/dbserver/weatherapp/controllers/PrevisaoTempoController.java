@@ -10,38 +10,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/previsaoTempo")
+@RequestMapping("/tempo/previsao")
 public class PrevisaoTempoController {
 
     @Autowired
     private PrevisaoTempoService previsaoTempoService;
 
-    @GetMapping("/tempo-atual")
+    @GetMapping("/hoje")
     public String getTempo(@RequestParam String cidade) {
         return previsaoTempoService.getPrevisaoTempoAtual(cidade);
     }
 
-    @GetMapping("/tempo-7dias")
+    @GetMapping("/semana")
     public String getTempo7dias(@RequestParam String cidade) {
         return previsaoTempoService.getPrevisaoProximos7Dias(cidade);
     }
 
-    @GetMapping("/tempo")
+    @GetMapping("/previsoes")
     public List<PrevisaoTempo> getAllPrevisaoTempo() {
         return previsaoTempoService.getAllPrevisoes();
     }
 
-    @PostMapping("/previsao")
+    @PostMapping("/")
     public ResponseEntity<String> cadastrarPrevisaoTempo(@RequestBody PrevisaoTempoDTO previsaoTempoDTO) {
         PrevisaoTempo previsaoTempo = new PrevisaoTempo();
-        previsaoTempo.setidade(previsaoTempoDTO.getCidade());
+        previsaoTempo.setCidade(previsaoTempoDTO.getCidade());
         previsaoTempo.setTempo(previsaoTempoDTO.getTempo());
 
         previsaoTempoService.cadastrarPrevisao(previsaoTempo);
         return ResponseEntity.ok("Previsão cadastrada com sucesso");
     }
 
-    @PutMapping("/previsao/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> editarPrevisao(@PathVariable Long id, @RequestBody PrevisaoTempoDTO previsaoTempoDTO) {
         PrevisaoTempo previsaoTempo = new PrevisaoTempo();
         previsaoTempo.setCidade(previsaoTempoDTO.getCidade());
@@ -51,7 +51,7 @@ public class PrevisaoTempoController {
         return ResponseEntity.ok("Previsão atualizada");
     }
 
-    @DeleteMapping("/previsao/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarPrevisao(@PathVariable Long id) {
         previsaoTempoService.deletarPrevisao(id);
         return ResponseEntity.ok("Previsão excluída com sucesso");
