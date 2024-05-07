@@ -2,7 +2,7 @@ package br.com.dbserver.weatherapp.controllers;
 
 import br.com.dbserver.weatherapp.dto.PrevisaoTempoDTO;
 import br.com.dbserver.weatherapp.model.PrevisaoTempo;
-import br.com.dbserver.weatherapp.services.PrevisaoTempoService;
+import br.com.dbserver.weatherapp.services.PrevisaoTempoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +14,21 @@ import java.util.List;
 public class PrevisaoTempoController {
 
     @Autowired
-    private PrevisaoTempoService previsaoTempoService;
+    private PrevisaoTempoServiceImpl previsaoTempoServiceImpl;
 
     @GetMapping("/hoje")
     public String getTempo(@RequestParam String cidade) {
-        return previsaoTempoService.getPrevisaoTempoAtual(cidade);
+        return previsaoTempoServiceImpl.getPrevisaoTempoAtual(cidade);
     }
 
     @GetMapping("/semana")
     public String getTempo7dias(@RequestParam String cidade) {
-        return previsaoTempoService.getPrevisaoProximos7Dias(cidade);
+        return previsaoTempoServiceImpl.getPrevisaoProximos7Dias(cidade);
     }
 
     @GetMapping("/previsoes")
     public List<PrevisaoTempo> getAllPrevisaoTempo() {
-        return previsaoTempoService.getAllPrevisoes();
+        return previsaoTempoServiceImpl.getAllPrevisoes();
     }
 
     @PostMapping("/")
@@ -37,7 +37,7 @@ public class PrevisaoTempoController {
         previsaoTempo.setCidade(previsaoTempoDTO.getCidade());
         previsaoTempo.setTempo(previsaoTempoDTO.getTempo());
 
-        previsaoTempoService.cadastrarPrevisao(previsaoTempo);
+        previsaoTempoServiceImpl.cadastrarPrevisao(previsaoTempo);
         return ResponseEntity.ok("Previsão cadastrada com sucesso");
     }
 
@@ -47,13 +47,13 @@ public class PrevisaoTempoController {
         previsaoTempo.setCidade(previsaoTempoDTO.getCidade());
         previsaoTempo.setTempo(previsaoTempoDTO.getTempo());
 
-        previsaoTempoService.editarPrevisao(id, previsaoTempo);
+        previsaoTempoServiceImpl.editarPrevisao(id, previsaoTempo);
         return ResponseEntity.ok("Previsão atualizada");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletarPrevisao(@PathVariable Long id) {
-        previsaoTempoService.deletarPrevisao(id);
+        previsaoTempoServiceImpl.deletarPrevisao(id);
         return ResponseEntity.ok("Previsão excluída com sucesso");
     }
 }
