@@ -43,7 +43,7 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     }
 
     @Override
-    public PrevisaoDTO cadastrarPrevisao(PrevisaoTempo previsaoDTO) {
+    public PrevisaoDTO cadastrarPrevisao(PrevisaoDTO previsaoDTO) {
         PrevisaoTempo previsaoTempo = new PrevisaoTempo();
         previsaoTempo.setCidade(previsaoDTO.getCidade());
         previsaoTempo.setTempo(previsaoDTO.getTempo());

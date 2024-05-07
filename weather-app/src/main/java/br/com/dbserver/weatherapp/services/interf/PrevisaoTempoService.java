@@ -12,7 +12,7 @@ public interface PrevisaoTempoService {
 
     List<PrevisaoDTO> getAllPrevisoesAsDTO();
 
-    PrevisaoDTO cadastrarPrevisao(PrevisaoTempo previsaoDTO);
+    PrevisaoDTO cadastrarPrevisao(PrevisaoDTO previsaoDTO);
     PrevisaoDTO atualizarPrevisao(Long id, PrevisaoDTO previsaoDTO);
     void deletarPrevisao(Long id);
 }
