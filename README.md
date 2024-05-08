@@ -37,16 +37,16 @@ Este projeto foi proposto pela DBServer como parte do desafio final da equipe da
    - Use o software Postman ou o Insomnia para fazer as requisições.
    
 **Metódo GETTempoAtual (Porto Alegre) (Não precisa de JSON)**
-  - `localhost:8080/previsaoTempo/tempo-atual?cidade=Porto Alegre`<br>
+  - `localhost:8080/tempo/previsao/hoje?cidade=Porto Alegre`<br>
   
 **Método GETTempo7Dias (Porto Alegre) (Não precisa de JSON)**
-  - `localhost:8080/previsaoTempo/tempo-7dias?cidade=Porto Alegre`<br>
+  - `localhost:8080/tempo/previsao/semana?cidade=Porto Alegre`<br>
   
 **Método GETAllTempo (Não precisa de JSON)**
-  - `localhost:8080/previsaoTempo/tempo`<br>
+  - `localhost:8080/tempo/previsao/previsoes`<br>
 
 **Método POSTTempo (Precisa de JSON) (cidade e tempo)**
-  - `localhost:8080/previsaoTempo/previsao`
+  - `localhost:8080/tempo/previsao/`
   ```bash
   {
 	"cidade": "São Paulo",
@@ -54,7 +54,7 @@ Este projeto foi proposto pela DBServer como parte do desafio final da equipe da
   }
   ```
 **Método PUTTempo (Precisa de JSON) (cidade e tempo) O id na url**
-  - `localhost:8080/previsaoTempo/previsao/1`
+  - `localhost:8080/tempo/previsao/1`
   ```bash
   {
 	"cidade": "São Paulo",
@@ -62,4 +62,4 @@ Este projeto foi proposto pela DBServer como parte do desafio final da equipe da
   }
   ```
 **Métódo DELETETempo (Não precisa de JSON) o id na url**
-  - `localhost:8080/previsaoTempo/previsao/1`
+  - `localhost:8080/tempo/previsao/1`
