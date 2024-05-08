@@ -54,10 +54,15 @@ public class PrevisaoTempoServiceTest {
     }
 
     @Test
-    void getPrevisaoProximos7Dias() {
-        List<PrevisaoDTO> previsoesDTO = Arrays.asList(new PrevisaoDTO(cidade, "Chuvoso"), new PrevisaoDTO(cidade, "Nublado"));
+    void testObterPrevisaoProximos7Dias() {
+        String cidade = "São Paulo";
 
-        when(previsaoTempoService.obterPrevisaoProximos7Dias(anyString())).thenReturn(previsoesDTO);
+        List<PrevisaoTempo> previsoes = Arrays.asList(
+                new PrevisaoTempo(1L, cidade, "Chuvoso"),
+                new PrevisaoTempo(2L, cidade, "Nublado")
+        );
+
+        when(previsaoTempoRepository.findByCidade(cidade)).thenReturn(previsoes);
 
         List<PrevisaoDTO> resultado = previsaoTempoService.obterPrevisaoProximos7Dias(cidade);
 

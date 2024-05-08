@@ -1,65 +1,56 @@
 //package br.com.dbserver.weatherapp.controller;
 //
-//import br.com.dbserver.weatherapp.controllers.PrevisaoTempoController;
+//import br.com.dbserver.weatherapp.WeatherAppApplication;
 //import br.com.dbserver.weatherapp.dto.PrevisaoDTO;
-//import br.com.dbserver.weatherapp.model.PrevisaoTempo;
-//import br.com.dbserver.weatherapp.services.interf.PrevisaoTempoService;
-//import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.boot.test.web.client.TestRestTemplate;
+//import org.springframework.boot.test.web.server.LocalServerPort;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
 //
-//import java.util.Arrays;
-//import java.util.List;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
 //
-//import static org.mockito.Mockito.when;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = WeatherAppApplication.class)
+//class PrevisaoTempoControllerTest {
 //
-//public class PrevisaoTempoControllerTest {
+//    @LocalServerPort
+//    private int port;
 //
-//    private MockMvc mockMvc;
+//    @Autowired
+//    private TestRestTemplate restTemplate;
 //
-//    @Mock
-//    private PrevisaoTempoService previsaoTempoService;
+//    private String cidade = "São Paulo";
 //
-//    @InjectMocks
-//    private PrevisaoTempoController previsaoTempoController;
+//    @Test
+//    void testObterPrevisaoTempoAtual() {
+//        String url = buildUrl("/previsao-tempo/atual");
 //
-//    @BeforeEach
-//    void setup() {
-//        mockMvc = MockMvcBuilders.standaloneSetup(previsaoTempoController).build();
+//        ResponseEntity<PrevisaoDTO> response = restTemplate.getForEntity(url, PrevisaoDTO.class);
+//
+//        assertResponse(HttpStatus.OK, response);
+//        PrevisaoDTO resultado = response.getBody();
+//        assertNotNull(resultado);
+//        assertEquals(cidade, resultado.getCidade());
 //    }
 //
 //    @Test
-//    void getTempoAtual() throws Exception {
-//        String cidade = "São Paulo";
-//        PrevisaoDTO previsaoDTO = new PrevisaoDTO(cidade, "Ensolarado");
+//    void testObterPrevisaoProximos7Dias() {
+//        String url = buildUrl("/previsao-tempo/proximos-7-dias");
 //
-//        when(previsaoTempoService.obterPrevisaoTempoAtual(cidade)).thenReturn(previsaoDTO);
+//        PrevisaoDTO[] previsoes = restTemplate.getForObject(url, PrevisaoDTO[].class);
 //
-//        mockMvc.perform(get("/tempo/previsao/hoje").param("cidade", cidade).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.cidade").value(cidade)).andExpect(jsonPath("$.tempo").value("Ensolarado"));
+//        assertNotNull(previsoes);
+//        assertEquals(7, previsoes.length);
 //    }
 //
-//    @Test
-//    void getTempo7dias() throws Exception {
-//        String cidade = "São Paulo";
-//        List<PrevisaoDTO> previsoesDTO = Arrays.asList(new PrevisaoDTO(cidade, "Chuvoso"), new PrevisaoDTO(cidade, "Nublado"));
-//
-//        when(previsaoTempoService.obterPrevisaoProximos7Dias(cidade)).thenReturn(previsoesDTO);
-//
-//        mockMvc.perform(get("/tempo/previsao/semana").param("cidade", cidade).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$[0].cidade").value(cidade)).andExpect(jsonPath("$[0].tempo").value("Chuvoso")).andExpect(jsonPath("$[1].cidade").value(cidade)).andExpect(jsonPath("$[1].tempo").value("Nublado"));
+//    private String buildUrl(String path) {
+//        return "http://localhost:" + port + path + "?cidade=" + cidade;
 //    }
 //
-//    @Test
-//    void getAllPrevisaoTempo() throws Exception {
-//        List<PrevisaoTempo> previsoes = Arrays.asList(new PrevisaoTempo(1L, "São Paulo", "Chuvoso"), new PrevisaoTempo(2L, "Porto Alegre", "Chuvoso"));
-//
-//        when(previsaoTempoService.getAllPrevisoes()).thenReturn(previsoes);
-//
-//        mockMvc.perform(get("/tempo/previsao/previsoes").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$[0].cidade").value("São Paulo")).andExpect(jsonPath("$[0].tempo").value("Chuvoso")).andExpect(jsonPath("$[1].cidade").value("Porto Alegre")).andExpect(jsonPath("$[1].tempo").value("Chuvoso"));
+//    private void assertResponse(HttpStatus expectedHttpStatus, ResponseEntity<?> response) {
+//        assertEquals(expectedHttpStatus, response.getStatusCode());
 //    }
 //}
