@@ -34,12 +34,6 @@ public class PrevisaoTempo {
         this.velocidadeVento = velocidadeVento;
     }
 
-    // Getter and setter methods for other attributes
-
-    public Long getId() {
-        return id;
-    }
-
     public String getCidade() {
         return cidade;
     }
