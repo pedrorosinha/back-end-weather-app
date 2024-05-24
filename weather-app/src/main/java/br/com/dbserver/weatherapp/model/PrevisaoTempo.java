@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
+
 @Entity
 public class PrevisaoTempo {
     @Id
@@ -21,8 +23,9 @@ public class PrevisaoTempo {
     private int precipitacao;
     private int umidade;
     private int velocidadeVento;
+    private LocalDate data;
 
-    public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento) {
+    public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
         this.id = id;
         this.cidade = cidade;
         this.turno = turno;
@@ -32,6 +35,7 @@ public class PrevisaoTempo {
         this.precipitacao = precipitacao;
         this.umidade = umidade;
         this.velocidadeVento = velocidadeVento;
+        this.data = data;
     }
 
     public String getCidade() {
@@ -96,5 +100,13 @@ public class PrevisaoTempo {
 
     public void setVelocidadeVento(int velocidadeVento) {
         this.velocidadeVento = velocidadeVento;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 }
