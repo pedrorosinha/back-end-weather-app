@@ -48,7 +48,8 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
 
     @Override
     public PrevisaoDTO atualizarPrevisao(Long id, PrevisaoDTO previsaoDTO) {
-        PrevisaoTempo previsaoTempo = previsaoTempoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Previsão não encontrada para o ID: " + id));
+        PrevisaoTempo previsaoTempo = previsaoTempoRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("Previsão não encontrada para o ID: " + id));
 
         previsaoTempo.setCidade(previsaoDTO.getCidade());
         previsaoTempo.setTurno(previsaoDTO.getTurno());
@@ -58,8 +59,6 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
         previsaoTempo.setPrecipitacao(previsaoDTO.getPrecipitacao());
         previsaoTempo.setUmidade(previsaoDTO.getUmidade());
         previsaoTempo.setVelocidadeVento(previsaoDTO.getVelocidadeVento());
-
-        previsaoTempoRepository.save(previsaoTempo);
 
         return convertToDTO(previsaoTempo);
     }
