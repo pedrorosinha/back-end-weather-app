@@ -2,7 +2,6 @@ package br.com.dbserver.weatherapp.controllers;
 
 import br.com.dbserver.weatherapp.dto.PrevisaoDTO;
 import br.com.dbserver.weatherapp.services.interf.PrevisaoTempoService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,27 +20,21 @@ public class PrevisaoTempoController {
         this.previsaoTempoService = previsaoTempoService;
     }
 
-    @GetMapping("/hoje")
-    public ResponseEntity<PrevisaoDTO> obterPrevisaoHoje(@RequestParam("cidade") String cidade) {
-        try {
-            PrevisaoDTO previsaoDTO = previsaoTempoService.obterPrevisaoTempoAtual(cidade);
-            return ResponseEntity.ok(previsaoDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @GetMapping("/atual")
+    public ResponseEntity<PrevisaoDTO> obterPrevisaoAtual(@RequestParam("cidade") String cidade) {
+        PrevisaoDTO previsaoDTO = previsaoTempoService.obterPrevisaoTempoAtual(cidade);
+        return ResponseEntity.ok(previsaoDTO);
     }
 
-    @GetMapping("/semana")
-    public ResponseEntity<List<PrevisaoDTO>> obterPrevisaoSemana(@RequestParam("cidade") String cidade) {
+    @GetMapping("/proximos7dias")
+    public ResponseEntity<List<PrevisaoDTO>> obterPrevisaoProximos7Dias(@RequestParam("cidade") String cidade) {
         List<PrevisaoDTO> previsoesDTO = previsaoTempoService.obterPrevisaoProximos7Dias(cidade);
         return ResponseEntity.ok(previsoesDTO);
     }
 
-    @GetMapping("/previsoes")
-    public ResponseEntity<List<PrevisaoDTO>> getAllPrevisoes() {
-        List<PrevisaoDTO> previsoesDTO = previsaoTempoService.getAllPrevisoesAsDTO();
+    @GetMapping("/todas")
+    public ResponseEntity<List<PrevisaoDTO>> obterTodasPrevisoes() {
+        List<PrevisaoDTO> previsoesDTO = previsaoTempoService.getAllPrevisoes();
         return ResponseEntity.ok(previsoesDTO);
     }
 
@@ -53,14 +46,8 @@ public class PrevisaoTempoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PrevisaoDTO> atualizarPrevisao(@PathVariable Long id, @RequestBody PrevisaoDTO previsaoDTO) {
-        try {
-            PrevisaoDTO previsaoAtualizadaDTO = previsaoTempoService.atualizarPrevisao(id, previsaoDTO);
-            return ResponseEntity.ok(previsaoAtualizadaDTO);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        PrevisaoDTO previsaoAtualizadaDTO = previsaoTempoService.atualizarPrevisao(id, previsaoDTO);
+        return ResponseEntity.ok(previsaoAtualizadaDTO);
     }
 
     @DeleteMapping("/{id}")
