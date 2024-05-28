@@ -2,6 +2,7 @@ package br.com.dbserver.weatherapp.model;
 
 import br.com.dbserver.weatherapp.enums.Clima;
 import br.com.dbserver.weatherapp.enums.Turno;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +25,10 @@ public class PrevisaoTempo {
     private int umidade;
     private int velocidadeVento;
 
-    public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento) {
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate data;
+
+    public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
         this.id = id;
         this.cidade = cidade;
         this.turno = turno;
@@ -34,10 +38,11 @@ public class PrevisaoTempo {
         this.precipitacao = precipitacao;
         this.umidade = umidade;
         this.velocidadeVento = velocidadeVento;
+        this.data = data;
     }
 
-    public PrevisaoTempo(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento) {
-        this(null, cidade, turno, clima, temperaturaMinima, temperaturaMaxima, precipitacao, umidade, velocidadeVento);
+    public PrevisaoTempo(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
+        this(null, cidade, turno, clima, temperaturaMinima, temperaturaMaxima, precipitacao, umidade, velocidadeVento, data);
     }
 
     public String getCidade() {
@@ -102,5 +107,13 @@ public class PrevisaoTempo {
 
     public void setVelocidadeVento(int velocidadeVento) {
         this.velocidadeVento = velocidadeVento;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 }

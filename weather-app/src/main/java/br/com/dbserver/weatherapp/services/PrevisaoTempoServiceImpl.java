@@ -10,6 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,19 +27,26 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
 
     @Override
     public PrevisaoDTO obterPrevisaoTempoAtual(String cidade) {
-        return new PrevisaoDTO(cidade, Turno.MANHA, Clima.ENSOLARADO, 20, 30, 0, 70, 10);
+        return new PrevisaoDTO(cidade, Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
     }
 
     @Override
     public List<PrevisaoDTO> obterPrevisaoProximos7Dias(String cidade) {
-        return List.of(new PrevisaoDTO(cidade, Turno.TARDE, Clima.CHUVOSO, 18, 25, 10, 80, 15), new PrevisaoDTO(cidade, Turno.NOITE, Clima.NUBLADO, 15, 22, 5, 75, 12));
+        List<PrevisaoDTO> previsoes = new ArrayList<>();
+        LocalDate data = LocalDate.now().plusDays(1);
+        for (int i = 0; i < 7; i++) {
+            previsoes.add(new PrevisaoDTO(cidade, Turno.values()[i % 3], Clima.values()[i % 4], 20 + i, 30 - i, i * 5, 70 - i, 10 + i, data.plusDays(i)));
+        }
+        return previsoes;
     }
+
 
     @Override
     public List<PrevisaoDTO> getAllPrevisoes() {
         List<PrevisaoTempo> previsoes = previsaoTempoRepository.findAll();
         return previsoes.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
+
 
     @Override
     public PrevisaoDTO cadastrarPrevisao(PrevisaoDTO previsaoDTO) {
@@ -48,8 +57,7 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
 
     @Override
     public PrevisaoDTO atualizarPrevisao(Long id, PrevisaoDTO previsaoDTO) {
-        PrevisaoTempo previsaoTempo = previsaoTempoRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Previsão não encontrada para o ID: " + id));
+        PrevisaoTempo previsaoTempo = previsaoTempoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Previsão não encontrada para o ID: " + id));
 
         previsaoTempo.setCidade(previsaoDTO.getCidade());
         previsaoTempo.setTurno(previsaoDTO.getTurno());
@@ -59,6 +67,9 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
         previsaoTempo.setPrecipitacao(previsaoDTO.getPrecipitacao());
         previsaoTempo.setUmidade(previsaoDTO.getUmidade());
         previsaoTempo.setVelocidadeVento(previsaoDTO.getVelocidadeVento());
+        previsaoTempo.setData(previsaoDTO.getData());
+
+        previsaoTempoRepository.save(previsaoTempo);
 
         return convertToDTO(previsaoTempo);
     }
@@ -69,10 +80,10 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     }
 
     private PrevisaoDTO convertToDTO(PrevisaoTempo previsaoTempo) {
-        return new PrevisaoDTO(previsaoTempo.getCidade(), previsaoTempo.getTurno(), previsaoTempo.getClima(), previsaoTempo.getTemperaturaMinima(), previsaoTempo.getTemperaturaMaxima(), previsaoTempo.getPrecipitacao(), previsaoTempo.getUmidade(), previsaoTempo.getVelocidadeVento());
+        return new PrevisaoDTO(previsaoTempo.getCidade(), previsaoTempo.getTurno(), previsaoTempo.getClima(), previsaoTempo.getTemperaturaMinima(), previsaoTempo.getTemperaturaMaxima(), previsaoTempo.getPrecipitacao(), previsaoTempo.getUmidade(), previsaoTempo.getVelocidadeVento(), previsaoTempo.getData());
     }
 
     private PrevisaoTempo convertToEntity(PrevisaoDTO previsaoDTO) {
-        return new PrevisaoTempo(null, previsaoDTO.getCidade(), previsaoDTO.getTurno(), previsaoDTO.getClima(), previsaoDTO.getTemperaturaMinima(), previsaoDTO.getTemperaturaMaxima(), previsaoDTO.getPrecipitacao(), previsaoDTO.getUmidade(), previsaoDTO.getVelocidadeVento());
+        return new PrevisaoTempo(null, previsaoDTO.getCidade(), previsaoDTO.getTurno(), previsaoDTO.getClima(), previsaoDTO.getTemperaturaMinima(), previsaoDTO.getTemperaturaMaxima(), previsaoDTO.getPrecipitacao(), previsaoDTO.getUmidade(), previsaoDTO.getVelocidadeVento(), previsaoDTO.getData());
     }
 }

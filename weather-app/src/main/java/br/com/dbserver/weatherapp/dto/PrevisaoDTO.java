@@ -2,11 +2,11 @@ package br.com.dbserver.weatherapp.dto;
 
 import br.com.dbserver.weatherapp.enums.Clima;
 import br.com.dbserver.weatherapp.enums.Turno;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Objects;
+import java.time.LocalDate;
 
 public class PrevisaoDTO {
-
     private String cidade;
     private Turno turno;
     private Clima clima;
@@ -16,10 +16,10 @@ public class PrevisaoDTO {
     private int umidade;
     private int velocidadeVento;
 
-    public PrevisaoDTO() {
-    }
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate data;
 
-    public PrevisaoDTO(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento) {
+    public PrevisaoDTO(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
         this.cidade = cidade;
         this.turno = turno;
         this.clima = clima;
@@ -28,6 +28,7 @@ public class PrevisaoDTO {
         this.precipitacao = precipitacao;
         this.umidade = umidade;
         this.velocidadeVento = velocidadeVento;
+        this.data = data;
     }
 
     public String getCidade() {
@@ -42,68 +43,32 @@ public class PrevisaoDTO {
         return turno;
     }
 
-    public void setTurno(Turno turno) {
-        this.turno = turno;
-    }
-
     public Clima getClima() {
         return clima;
     }
 
-    public void setClima(Clima clima) {
-        this.clima = clima;
-    }
 
     public int getTemperaturaMinima() {
         return temperaturaMinima;
-    }
-
-    public void setTemperaturaMinima(int temperaturaMinima) {
-        this.temperaturaMinima = temperaturaMinima;
     }
 
     public int getTemperaturaMaxima() {
         return temperaturaMaxima;
     }
 
-    public void setTemperaturaMaxima(int temperaturaMaxima) {
-        this.temperaturaMaxima = temperaturaMaxima;
-    }
-
     public int getPrecipitacao() {
         return precipitacao;
-    }
-
-    public void setPrecipitacao(int precipitacao) {
-        this.precipitacao = precipitacao;
     }
 
     public int getUmidade() {
         return umidade;
     }
 
-    public void setUmidade(int umidade) {
-        this.umidade = umidade;
-    }
-
     public int getVelocidadeVento() {
         return velocidadeVento;
     }
 
-    public void setVelocidadeVento(int velocidadeVento) {
-        this.velocidadeVento = velocidadeVento;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PrevisaoDTO that = (PrevisaoDTO) o;
-        return temperaturaMinima == that.temperaturaMinima && temperaturaMaxima == that.temperaturaMaxima && precipitacao == that.precipitacao && umidade == that.umidade && velocidadeVento == that.velocidadeVento && Objects.equals(cidade, that.cidade) && turno == that.turno && clima == that.clima;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cidade, turno, clima, temperaturaMinima, temperaturaMaxima, precipitacao, umidade, velocidadeVento);
+    public LocalDate getData() {
+        return data;
     }
 }
