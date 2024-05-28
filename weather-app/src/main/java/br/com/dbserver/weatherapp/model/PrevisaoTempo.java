@@ -23,9 +23,8 @@ public class PrevisaoTempo {
     private int precipitacao;
     private int umidade;
     private int velocidadeVento;
-    private LocalDate data;
 
-    public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
+    public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento) {
         this.id = id;
         this.cidade = cidade;
         this.turno = turno;
@@ -35,7 +34,10 @@ public class PrevisaoTempo {
         this.precipitacao = precipitacao;
         this.umidade = umidade;
         this.velocidadeVento = velocidadeVento;
-        this.data = data;
+    }
+
+    public PrevisaoTempo(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento) {
+        this(null, cidade, turno, clima, temperaturaMinima, temperaturaMaxima, precipitacao, umidade, velocidadeVento);
     }
 
     public String getCidade() {
@@ -100,13 +102,5 @@ public class PrevisaoTempo {
 
     public void setVelocidadeVento(int velocidadeVento) {
         this.velocidadeVento = velocidadeVento;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
     }
 }
