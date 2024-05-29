@@ -28,6 +28,9 @@ public class PrevisaoTempo {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
+    public PrevisaoTempo() {
+    }
+
     public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
         this.id = id;
         this.cidade = cidade;
