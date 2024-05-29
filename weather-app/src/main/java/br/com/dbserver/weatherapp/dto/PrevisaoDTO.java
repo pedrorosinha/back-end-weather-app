@@ -16,7 +16,6 @@ public class PrevisaoDTO {
     private int umidade;
     private int velocidadeVento;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     public PrevisaoDTO(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {

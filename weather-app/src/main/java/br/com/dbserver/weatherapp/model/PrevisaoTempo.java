@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 public class PrevisaoTempo {
@@ -25,6 +24,8 @@ public class PrevisaoTempo {
     private int precipitacao;
     private int umidade;
     private int velocidadeVento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data;
 
     public PrevisaoTempo(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
