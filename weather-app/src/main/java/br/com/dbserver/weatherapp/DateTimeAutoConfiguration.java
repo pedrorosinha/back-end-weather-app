@@ -22,8 +22,6 @@ public class DateTimeAutoConfiguration {
             @Override
             public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
                 final String dateFormat = "dd/MM/yyyy";
-                final String timeFormat = "hh:mm:ss a";
-                final String dateTimeFormat = "dd/MM/yyyy hh:mm:ss a";
                 jacksonObjectMapperBuilder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat))).deserializers(new LocalDateDeserializer(DateTimeFormatter.ofPattern(dateFormat)));
             }
         };
