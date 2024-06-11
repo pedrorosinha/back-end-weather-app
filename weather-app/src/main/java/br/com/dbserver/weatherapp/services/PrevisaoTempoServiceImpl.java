@@ -27,7 +27,7 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
 
     @Override
     public PrevisaoDTO obterPrevisaoTempoAtual(String cidade) {
-        return new PrevisaoDTO(cidade, Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
+        return new PrevisaoDTO(null, cidade, Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
     }
 
     @Override
@@ -35,7 +35,7 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
         List<PrevisaoDTO> previsoes = new ArrayList<>();
         LocalDate data = LocalDate.now().plusDays(1);
         for (int i = 0; i < 7; i++) {
-            previsoes.add(new PrevisaoDTO(cidade, Turno.values()[i % 3], Clima.values()[i % 4], 20 + i, 30 - i, i * 5, 70 - i, 10 + i, data.plusDays(i)));
+            previsoes.add(new PrevisaoDTO(null, cidade, Turno.values()[i % 3], Clima.values()[i % 4], 20 + i, 30 - i, i * 5, 70 - i, 10 + i, data.plusDays(i)));
         }
         return previsoes;
     }
@@ -45,6 +45,14 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     public List<PrevisaoDTO> getAllPrevisoes() {
         List<PrevisaoTempo> previsoes = previsaoTempoRepository.findAll();
         return previsoes.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PrevisaoDTO> obterTodasPrevisoesPorCidade(String cidade) {
+        List<PrevisaoTempo> previsoes = previsaoTempoRepository.findByCidade(cidade);
+        return previsoes.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
 
@@ -80,7 +88,7 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     }
 
     private PrevisaoDTO convertToDTO(PrevisaoTempo previsaoTempo) {
-        return new PrevisaoDTO(previsaoTempo.getCidade(), previsaoTempo.getTurno(), previsaoTempo.getClima(), previsaoTempo.getTemperaturaMinima(), previsaoTempo.getTemperaturaMaxima(), previsaoTempo.getPrecipitacao(), previsaoTempo.getUmidade(), previsaoTempo.getVelocidadeVento(), previsaoTempo.getData());
+        return new PrevisaoDTO(previsaoTempo.getId(), previsaoTempo.getCidade(), previsaoTempo.getTurno(), previsaoTempo.getClima(), previsaoTempo.getTemperaturaMinima(), previsaoTempo.getTemperaturaMaxima(), previsaoTempo.getPrecipitacao(), previsaoTempo.getUmidade(), previsaoTempo.getVelocidadeVento(), previsaoTempo.getData());
     }
 
     private PrevisaoTempo convertToEntity(PrevisaoDTO previsaoDTO) {

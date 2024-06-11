@@ -48,6 +48,10 @@ public class PrevisaoTempo {
         this(null, cidade, turno, clima, temperaturaMinima, temperaturaMaxima, precipitacao, umidade, velocidadeVento, data);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getCidade() {
         return cidade;
     }

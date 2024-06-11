@@ -21,6 +21,12 @@ public class PrevisaoTempoController {
         this.previsaoTempoService = previsaoTempoService;
     }
 
+    @GetMapping("/todasPorCidade")
+    public ResponseEntity<List<PrevisaoDTO>> obterTodasPrevisoesPorCidade(@RequestParam("cidade") String cidade) {
+        List<PrevisaoDTO> previsoesDTO = previsaoTempoService.obterTodasPrevisoesPorCidade(cidade);
+        return ResponseEntity.ok(previsoesDTO);
+    }
+
     @GetMapping("/atual")
     public ResponseEntity<PrevisaoDTO> obterPrevisaoAtual(@RequestParam("cidade") String cidade) {
         PrevisaoDTO previsaoDTO = previsaoTempoService.obterPrevisaoTempoAtual(cidade);

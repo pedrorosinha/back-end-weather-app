@@ -1,4 +1,4 @@
-package br.com.dbserver.weatherapp.services;
+package br.com.dbserver.weatherapp.servicesAPI;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import org.apache.hc.client5.http.classic.methods.HttpGet;

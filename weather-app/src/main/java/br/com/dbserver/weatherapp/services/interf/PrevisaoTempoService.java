@@ -11,6 +11,8 @@ public interface PrevisaoTempoService {
 
     List<PrevisaoDTO> getAllPrevisoes();
 
+    List<PrevisaoDTO> obterTodasPrevisoesPorCidade(String cidade);
+
     PrevisaoDTO cadastrarPrevisao(PrevisaoDTO previsaoDTO);
 
     PrevisaoDTO atualizarPrevisao(Long id, PrevisaoDTO previsaoDTO);

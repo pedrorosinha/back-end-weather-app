@@ -34,7 +34,7 @@ public class PrevisaoTempoServiceTest {
 
     @BeforeEach
     void setUp() {
-        previsaoDTO = new PrevisaoDTO("São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
+        previsaoDTO = new PrevisaoDTO(1L, "São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class PrevisaoTempoServiceTest {
 
         when(previsaoTempoRepository.findById(id)).thenReturn(Optional.of(previsaoTempoAtual));
 
-        PrevisaoDTO previsaoAtualizada = new PrevisaoDTO("POA", Turno.NOITE, Clima.NUBLADO, 22, 30, 3, 65, 12, LocalDate.now());
+        PrevisaoDTO previsaoAtualizada = new PrevisaoDTO(1L, "POA", Turno.NOITE, Clima.NUBLADO, 22, 30, 3, 65, 12, LocalDate.now());
 
         PrevisaoDTO resultado = previsaoTempoService.atualizarPrevisao(id, previsaoAtualizada);
 

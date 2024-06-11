@@ -41,7 +41,7 @@ class PrevisaoTempoControllerTest {
 
     @Test
     void testObterPrevisaoAtualSucesso() {
-        PrevisaoDTO previsaoDTO = new PrevisaoDTO(cidade, Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
+        PrevisaoDTO previsaoDTO = new PrevisaoDTO(1L, cidade, Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
 
         when(previsaoTempoService.obterPrevisaoTempoAtual(cidade)).thenReturn(previsaoDTO);
 
@@ -53,7 +53,7 @@ class PrevisaoTempoControllerTest {
 
     @Test
     void testObterPrevisaoProximos7Dias() {
-        List<PrevisaoDTO> previsoesDTO = Arrays.asList(new PrevisaoDTO(cidade, Turno.MANHA, Clima.CHUVOSO, 20, 25, 10, 80, 15, LocalDate.now().plusDays(1)), new PrevisaoDTO(cidade, Turno.TARDE, Clima.NUBLADO, 22, 28, 5, 70, 10, LocalDate.now().plusDays(2)));
+        List<PrevisaoDTO> previsoesDTO = Arrays.asList(new PrevisaoDTO(1L, cidade, Turno.MANHA, Clima.CHUVOSO, 20, 25, 10, 80, 15, LocalDate.now().plusDays(1)), new PrevisaoDTO(2L, cidade, Turno.TARDE, Clima.NUBLADO, 22, 28, 5, 70, 10, LocalDate.now().plusDays(2)));
 
         when(previsaoTempoService.obterPrevisaoProximos7Dias(cidade)).thenReturn(previsoesDTO);
 
@@ -65,7 +65,7 @@ class PrevisaoTempoControllerTest {
 
     @Test
     void testObterTodasPrevisoes() {
-        List<PrevisaoDTO> previsoesDTO = Arrays.asList(new PrevisaoDTO("São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now()), new PrevisaoDTO("Porto Alegre", Turno.TARDE, Clima.CHUVOSO, 22, 28, 10, 85, 12, LocalDate.now()));
+        List<PrevisaoDTO> previsoesDTO = Arrays.asList(new PrevisaoDTO(1L, "São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now()), new PrevisaoDTO(2L, "Porto Alegre", Turno.TARDE, Clima.CHUVOSO, 22, 28, 10, 85, 12, LocalDate.now()));
 
         when(previsaoTempoService.getAllPrevisoes()).thenReturn(previsoesDTO);
 
@@ -77,7 +77,7 @@ class PrevisaoTempoControllerTest {
 
     @Test
     void testCadastrarPrevisaoSucesso() {
-        PrevisaoDTO previsaoDTO = new PrevisaoDTO(cidade, Turno.MANHA, Clima.CHUVOSO, 20, 28, 10, 70, 15, LocalDate.now());
+        PrevisaoDTO previsaoDTO = new PrevisaoDTO(1L, cidade, Turno.MANHA, Clima.CHUVOSO, 20, 28, 10, 70, 15, LocalDate.now());
 
         when(previsaoTempoService.cadastrarPrevisao(any(PrevisaoDTO.class))).thenReturn(previsaoDTO);
 
@@ -90,7 +90,7 @@ class PrevisaoTempoControllerTest {
     @Test
     void testAtualizarPrevisaoSucesso() {
         Long id = 1L;
-        PrevisaoDTO previsaoDTO = new PrevisaoDTO(cidade, Turno.TARDE, Clima.NUBLADO, 22, 30, 5, 65, 12, LocalDate.now());
+        PrevisaoDTO previsaoDTO = new PrevisaoDTO(1L, cidade, Turno.TARDE, Clima.NUBLADO, 22, 30, 5, 65, 12, LocalDate.now());
 
         when(previsaoTempoService.atualizarPrevisao(eq(id), any(PrevisaoDTO.class))).thenReturn(previsaoDTO);
 

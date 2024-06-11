@@ -2,11 +2,11 @@ package br.com.dbserver.weatherapp.dto;
 
 import br.com.dbserver.weatherapp.enums.Clima;
 import br.com.dbserver.weatherapp.enums.Turno;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 
 public class PrevisaoDTO {
+    private Long id;
     private String cidade;
     private Turno turno;
     private Clima clima;
@@ -15,10 +15,10 @@ public class PrevisaoDTO {
     private int precipitacao;
     private int umidade;
     private int velocidadeVento;
-
     private LocalDate data;
 
-    public PrevisaoDTO(String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
+    public PrevisaoDTO(Long id, String cidade, Turno turno, Clima clima, int temperaturaMinima, int temperaturaMaxima, int precipitacao, int umidade, int velocidadeVento, LocalDate data) {
+        this.id = id;
         this.cidade = cidade;
         this.turno = turno;
         this.clima = clima;
@@ -28,6 +28,14 @@ public class PrevisaoDTO {
         this.umidade = umidade;
         this.velocidadeVento = velocidadeVento;
         this.data = data;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCidade() {
@@ -45,7 +53,6 @@ public class PrevisaoDTO {
     public Clima getClima() {
         return clima;
     }
-
 
     public int getTemperaturaMinima() {
         return temperaturaMinima;
