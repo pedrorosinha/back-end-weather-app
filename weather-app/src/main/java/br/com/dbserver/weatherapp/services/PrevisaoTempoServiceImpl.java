@@ -67,15 +67,15 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     public PrevisaoDTO atualizarPrevisao(Long id, PrevisaoDTO previsaoDTO) {
         PrevisaoTempo previsaoTempo = previsaoTempoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Previsão não encontrada para o ID: " + id));
 
-        previsaoTempo.setCidade(previsaoDTO.getCidade());
-        previsaoTempo.setTurno(previsaoDTO.getTurno());
-        previsaoTempo.setClima(previsaoDTO.getClima());
-        previsaoTempo.setTemperaturaMinima(previsaoDTO.getTemperaturaMinima());
-        previsaoTempo.setTemperaturaMaxima(previsaoDTO.getTemperaturaMaxima());
-        previsaoTempo.setPrecipitacao(previsaoDTO.getPrecipitacao());
-        previsaoTempo.setUmidade(previsaoDTO.getUmidade());
-        previsaoTempo.setVelocidadeVento(previsaoDTO.getVelocidadeVento());
-        previsaoTempo.setData(previsaoDTO.getData());
+        previsaoTempo.setCidade(previsaoDTO.cidade());
+        previsaoTempo.setTurno(previsaoDTO.turno());
+        previsaoTempo.setClima(previsaoDTO.clima());
+        previsaoTempo.setTemperaturaMinima(previsaoDTO.temperaturaMinima());
+        previsaoTempo.setTemperaturaMaxima(previsaoDTO.temperaturaMaxima());
+        previsaoTempo.setPrecipitacao(previsaoDTO.precipitacao());
+        previsaoTempo.setUmidade(previsaoDTO.umidade());
+        previsaoTempo.setVelocidadeVento(previsaoDTO.velocidadeVento());
+        previsaoTempo.setData(previsaoDTO.data());
 
         previsaoTempoRepository.save(previsaoTempo);
 
@@ -92,6 +92,6 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     }
 
     private PrevisaoTempo convertToEntity(PrevisaoDTO previsaoDTO) {
-        return new PrevisaoTempo(null, previsaoDTO.getCidade(), previsaoDTO.getTurno(), previsaoDTO.getClima(), previsaoDTO.getTemperaturaMinima(), previsaoDTO.getTemperaturaMaxima(), previsaoDTO.getPrecipitacao(), previsaoDTO.getUmidade(), previsaoDTO.getVelocidadeVento(), previsaoDTO.getData());
+        return new PrevisaoTempo(null, previsaoDTO.cidade(), previsaoDTO.turno(), previsaoDTO.clima(), previsaoDTO.temperaturaMinima(), previsaoDTO.temperaturaMaxima(), previsaoDTO.precipitacao(), previsaoDTO.umidade(), previsaoDTO.velocidadeVento(), previsaoDTO.data());
     }
 }
