@@ -2,6 +2,7 @@ package br.com.dbserver.weatherapp.controllers;
 
 import br.com.dbserver.weatherapp.dto.PrevisaoDTO;
 import br.com.dbserver.weatherapp.services.interf.PrevisaoTempoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class PrevisaoTempoController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<PrevisaoDTO> cadastrarPrevisao(@RequestBody PrevisaoDTO previsaoDTO) {
+    public ResponseEntity<PrevisaoDTO> cadastrarPrevisao(@Valid @RequestBody PrevisaoDTO previsaoDTO) {
         PrevisaoDTO novaPrevisaoDTO = previsaoTempoService.cadastrarPrevisao(previsaoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaPrevisaoDTO);
     }
