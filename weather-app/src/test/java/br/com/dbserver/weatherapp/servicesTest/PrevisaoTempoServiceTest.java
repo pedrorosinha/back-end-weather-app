@@ -7,6 +7,7 @@ import br.com.dbserver.weatherapp.enums.Turno;
 import br.com.dbserver.weatherapp.model.PrevisaoTempo;
 import br.com.dbserver.weatherapp.repository.PrevisaoTempoRepository;
 import br.com.dbserver.weatherapp.services.PrevisaoTempoServiceImpl;
+import br.com.dbserver.weatherapp.utils.PrevisaoFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,60 +38,36 @@ public class PrevisaoTempoServiceTest {
 
     @BeforeEach
     void setUp() {
-        previsaoDTO = new PrevisaoDTO(1L, "São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
-    }
-
-    @Test
-    @DisplayName("Deve pegar a previsão do tempo atual")
-    void getPrevisaoTempoAtual() {
-        PrevisaoDTO resultado = previsaoTempoService.obterPrevisaoTempoAtual("São Paulo");
-
-        assertEquals(previsaoDTO.cidade(), resultado.cidade());
-        assertEquals(previsaoDTO.clima(), resultado.clima());
-        assertEquals(previsaoDTO.turno(), resultado.turno());
-    }
-
-    @Test
-    @DisplayName("Deve pegar as previsões dos próximos 7 dias")
-    void obterPrevisaoProximos7Dias() {
-        List<PrevisaoDTO> previsoes = previsaoTempoService.obterPrevisaoProximos7Dias("São Paulo");
-
-        assertEquals(7, previsoes.size());
-        assertEquals("São Paulo", previsoes.get(0).cidade());
+        previsaoDTO = PrevisaoFixture.criarPrevisaoDTO();
     }
 
     @Test
     @DisplayName("Deve pegar todas as previsões de uma cidade")
     void obterTodasPrevisoesPorCidade() {
-        String cidade = "São Paulo";
-        PrevisaoTempo previsao1 = new PrevisaoTempo(1L, cidade, Turno.MANHA, Clima.ENSOLARADO, 20, 30, 0, 50, 10, LocalDate.now());
-        PrevisaoTempo previsao2 = new PrevisaoTempo(2L, cidade, Turno.TARDE, Clima.CHUVOSO, 22, 32, 5, 60, 12, LocalDate.now().plusDays(1));
+        String cidade = previsaoDTO.cidade();
 
-        List<PrevisaoTempo> previsoesList = List.of(previsao1, previsao2);
+        List<PrevisaoTempo> previsaoTempoList = PrevisaoFixture.criarListaPrevisaoTempo(2);
 
-        when(previsaoTempoRepository.findByCidade(cidade)).thenReturn(previsoesList);
+        when(previsaoTempoRepository.findByCidade(cidade)).thenReturn(previsaoTempoList);
 
-        List<PrevisaoDTO> result = previsaoTempoService.obterTodasPrevisoesPorCidade(cidade);
+        List<PrevisaoDTO> resultado = previsaoTempoService.obterTodasPrevisoesPorCidade(cidade);
 
-        assertEquals(2, result.size());
-        assertEquals("São Paulo", result.get(0).cidade());
-        assertEquals(Clima.ENSOLARADO, result.get(0).clima());
-        assertEquals("São Paulo", result.get(1).cidade());
-        assertEquals(Clima.CHUVOSO, result.get(1).clima());
+        assertEquals(previsaoTempoList.size(), resultado.size());
+        assertEquals(previsaoTempoList.get(0).getCidade(), resultado.get(0).cidade());
+        assertEquals(previsaoTempoList.get(0).getClima(), resultado.get(0).clima());
     }
 
     @Test
     @DisplayName("Deve pegar todas as previsões de todas as cidades")
     void getAllPrevisoes() {
-        List<PrevisaoTempo> previsoes = Arrays.asList(new PrevisaoTempo(1L, "São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now()), new PrevisaoTempo(2L, "Porto Alegre", Turno.TARDE, Clima.CHUVOSO, 20, 28, 10, 80, 15, LocalDate.now()));
+        List<PrevisaoTempo> previsoes = PrevisaoFixture.criarListaPrevisaoTempo(2);
 
         when(previsaoTempoRepository.findAll()).thenReturn(previsoes);
 
         List<PrevisaoDTO> resultado = previsaoTempoService.getAllPrevisoes();
 
-        assertEquals(2, resultado.size());
-        assertEquals("São Paulo", resultado.get(0).cidade());
-        assertEquals("Porto Alegre", resultado.get(1).cidade());
+        assertEquals(previsoes.size(), resultado.size());
+        assertEquals(previsoes.get(0).getCidade(), resultado.get(0).cidade());
     }
 
     @Test
@@ -104,12 +81,12 @@ public class PrevisaoTempoServiceTest {
     @Test
     @DisplayName("Deve atualizar a previsão")
     void atualizarPrevisao() {
-        Long id = 1L;
-        PrevisaoTempo previsaoTempoAtual = new PrevisaoTempo(id, "São Paulo", Turno.MANHA, Clima.CHUVOSO, 18, 24, 8, 85, 12, LocalDate.now());
+        Long id = previsaoDTO.id();
+        PrevisaoTempo previsaoTempoAtual = PrevisaoFixture.criarPrevisaoTempo();
 
         when(previsaoTempoRepository.findById(id)).thenReturn(Optional.of(previsaoTempoAtual));
 
-        PrevisaoDTO previsaoAtualizada = new PrevisaoDTO(1L, "POA", Turno.NOITE, Clima.NUBLADO, 22, 30, 3, 65, 12, LocalDate.now());
+        PrevisaoDTO previsaoAtualizada = PrevisaoFixture.criarPrevisaoDTO();
 
         PrevisaoDTO resultado = previsaoTempoService.atualizarPrevisao(id, previsaoAtualizada);
 
@@ -122,9 +99,9 @@ public class PrevisaoTempoServiceTest {
     @Test
     @DisplayName("Deve deletar uma previsão")
     void deletarPrevisao() {
-        Long id = 1L;
+        Long id = previsaoDTO.id();
 
-        when(previsaoTempoRepository.findById(id)).thenReturn(Optional.of(new PrevisaoTempo(id, "São Paulo", Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now())));
+        when(previsaoTempoRepository.findById(id)).thenReturn(Optional.of(PrevisaoFixture.criarPrevisaoTempo()));
 
         previsaoTempoService.deletarPrevisao(id);
 

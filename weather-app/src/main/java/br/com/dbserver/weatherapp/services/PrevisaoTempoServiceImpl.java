@@ -26,22 +26,6 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     }
 
     @Override
-    public PrevisaoDTO obterPrevisaoTempoAtual(String cidade) {
-        return new PrevisaoDTO(null, cidade, Turno.MANHA, Clima.ENSOLARADO, 25, 32, 5, 60, 10, LocalDate.now());
-    }
-
-    @Override
-    public List<PrevisaoDTO> obterPrevisaoProximos7Dias(String cidade) {
-        List<PrevisaoDTO> previsoes = new ArrayList<>();
-        LocalDate data = LocalDate.now().plusDays(1);
-        for (int i = 0; i < 7; i++) {
-            previsoes.add(new PrevisaoDTO(null, cidade, Turno.values()[i % 3], Clima.values()[i % 4], 20 + i, 30 - i, i * 5, 70 - i, 10 + i, data.plusDays(i)));
-        }
-        return previsoes;
-    }
-
-
-    @Override
     public List<PrevisaoDTO> getAllPrevisoes() {
         List<PrevisaoTempo> previsoes = previsaoTempoRepository.findAll();
         return previsoes.stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -92,6 +76,16 @@ public class PrevisaoTempoServiceImpl implements PrevisaoTempoService {
     }
 
     private PrevisaoTempo convertToEntity(PrevisaoDTO previsaoDTO) {
-        return new PrevisaoTempo(null, previsaoDTO.cidade(), previsaoDTO.turno(), previsaoDTO.clima(), previsaoDTO.temperaturaMinima(), previsaoDTO.temperaturaMaxima(), previsaoDTO.precipitacao(), previsaoDTO.umidade(), previsaoDTO.velocidadeVento(), previsaoDTO.data());
+        return PrevisaoTempo.builder()
+                .cidade(previsaoDTO.cidade())
+                .turno(previsaoDTO.turno())
+                .clima(previsaoDTO.clima())
+                .temperaturaMinima(previsaoDTO.temperaturaMinima())
+                .temperaturaMaxima(previsaoDTO.temperaturaMaxima())
+                .precipitacao(previsaoDTO.precipitacao())
+                .umidade(previsaoDTO.umidade())
+                .velocidadeVento(previsaoDTO.velocidadeVento())
+                .data(previsaoDTO.data())
+                .build();
     }
 }

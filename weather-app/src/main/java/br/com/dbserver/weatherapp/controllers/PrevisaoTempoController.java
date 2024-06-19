@@ -27,18 +27,6 @@ public class PrevisaoTempoController {
         return ResponseEntity.ok(previsoesDTO);
     }
 
-    @GetMapping("/atual")
-    public ResponseEntity<PrevisaoDTO> obterPrevisaoAtual(@RequestParam("cidade") String cidade) {
-        PrevisaoDTO previsaoDTO = previsaoTempoService.obterPrevisaoTempoAtual(cidade);
-        return ResponseEntity.ok(previsaoDTO);
-    }
-
-    @GetMapping("/proximos7dias")
-    public ResponseEntity<List<PrevisaoDTO>> obterPrevisaoProximos7Dias(@RequestParam("cidade") String cidade) {
-        List<PrevisaoDTO> previsoesDTO = previsaoTempoService.obterPrevisaoProximos7Dias(cidade);
-        return ResponseEntity.ok(previsoesDTO);
-    }
-
     @GetMapping("/todas")
     public ResponseEntity<List<PrevisaoDTO>> obterTodasPrevisoes() {
         List<PrevisaoDTO> previsoesDTO = previsaoTempoService.getAllPrevisoes();

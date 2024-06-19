@@ -5,10 +5,6 @@ import br.com.dbserver.weatherapp.dto.PrevisaoDTO;
 import java.util.List;
 
 public interface PrevisaoTempoService {
-    PrevisaoDTO obterPrevisaoTempoAtual(String cidade);
-
-    List<PrevisaoDTO> obterPrevisaoProximos7Dias(String cidade);
-
     List<PrevisaoDTO> getAllPrevisoes();
 
     List<PrevisaoDTO> obterTodasPrevisoesPorCidade(String cidade);
