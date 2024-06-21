@@ -13,7 +13,7 @@ public class TemperaturaValidator implements ConstraintValidator<ValidaTemperatu
     @Override
     public boolean isValid(PrevisaoDTO previsaoDTO, ConstraintValidatorContext context) {
         if (previsaoDTO == null) {
-            return true; // null values should be handled by @NotNull or @NotBlank
+            return true;
         }
 
         return previsaoDTO.temperaturaMinima() <= previsaoDTO.temperaturaMaxima();
