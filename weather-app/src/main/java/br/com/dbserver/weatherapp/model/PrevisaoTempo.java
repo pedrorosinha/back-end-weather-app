@@ -3,10 +3,7 @@ package br.com.dbserver.weatherapp.model;
 import br.com.dbserver.weatherapp.enums.Clima;
 import br.com.dbserver.weatherapp.enums.Turno;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -23,7 +20,9 @@ public class PrevisaoTempo {
     private Long id;
 
     private String cidade;
+    @Enumerated(EnumType.STRING)
     private Turno turno;
+    @Enumerated(EnumType.STRING)
     private Clima clima;
     private int temperaturaMinima;
     private int temperaturaMaxima;
